@@ -35,4 +35,5 @@ https://random-word-api.herokuapp.com/home
 ## Deployment
 
 Deployed using: https://www.netlify.com
+
 Link to deployed application: https://unjumble.netlify.app/
