@@ -24,10 +24,10 @@ const Game = () => {
     }
   };
 
-  console.log(show.length, guessWord.length)
+  console.log(show.length, guessWord.length);
 
   return (
-    <section className="px-10">
+    <section className="px-0 sm:px-10">
       <div className=" mb-10 flex flex-row justify-end gap-4">
         <button onClick={() => navigate('/')} className="hover:text-blue-400">
           <MdIcons.MdArrowBack size={40} />
@@ -46,8 +46,8 @@ const Game = () => {
         {words.jumbleWord.map((word, index) => {
           return (
             <div key={nanoid()} className="grid grid-cols-11 gap-5">
-              <div className=" col-span-5 border-4 border-blue-400 px-8 py-4 text-4xl font-bold uppercase">
-                <span>{word}</span>
+              <div className=" md:text-1xl col-span-5 flex items-center border-4 border-blue-400 px-2 py-2 text-sm  font-bold  uppercase lg:px-8 lg:py-4 lg:text-2xl xl:text-4xl">
+                {word}
               </div>
 
               <div className=" col-span-1 flex items-center justify-center">
@@ -55,22 +55,22 @@ const Game = () => {
                   onClick={() => setShow([...show, index])}
                   className="hover:text-blue-400"
                 >
-                  <RxIcons.RxThickArrowRight size={90} />
+                  <RxIcons.RxThickArrowRight className=" text-4xl md:text-6xl lg:text-8xl" />
                 </button>
               </div>
 
               {guessWord[index] === words.word[index] ? (
-                <div className=" col-span-5 flex items-center gap-4 border-4 border-blue-400 px-8 py-4 text-4xl font-bold uppercase">
+                <div className=" md:text-1xl col-span-5 flex items-center border-4 border-blue-400 px-2 py-2 text-sm  font-bold  uppercase lg:px-8 lg:py-4 lg:text-2xl xl:text-4xl">
                   {guessWord[index]}
-                  <span className=" text-green-400">
-                    <TiIcons.TiTick size={50} />
+                  <span className=" text-xl text-green-400 lg:text-5xl">
+                    <TiIcons.TiTick />
                   </span>
                 </div>
               ) : show.includes(index) && index === guessWord.length ? (
                 <input
                   onKeyDown={(e) => handleGuess(e, index)}
                   type="text"
-                  className=" col-span-5 border-4 border-blue-400 px-8 py-4 text-4xl font-bold uppercase"
+                  className=" md:text-1xl col-span-5 flex items-center border-4 border-blue-400 px-2 py-2 text-sm  font-bold  uppercase lg:px-8 lg:py-4 lg:text-2xl xl:text-4xl"
                 />
               ) : null}
             </div>

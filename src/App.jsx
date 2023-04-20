@@ -30,7 +30,7 @@ function App() {
         style={{ backgroundImage: `url(${img})` }}
         className=" min-h-screen bg-cover"
       >
-        <div className="container mx-auto min-h-screen bg-white py-10">
+        <div className="container mx-auto min-h-screen bg-white px-4 py-10 sm:px-0">
           <div className="mb-10 text-center">
             <h1 className="text-6xl font-bold text-yellow-300">unJumble</h1>
             <h3 className="text-2xl">Anagram Maker</h3>

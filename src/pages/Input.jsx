@@ -111,32 +111,34 @@ const Home = ({ dictionary }) => {
   return (
     <section>
       <div className=" flex flex-col items-center justify-center">
-        <p className="mb-4">
+        <p className="mb-4 text-center">
           Type in up to 10 pieces of vocabulary, using up to 20 characters:
         </p>
 
-        <div className="mb-10 border-2 border-blue-400">
+        <div className="mb-10 flex flex-col border-2 border-blue-400 sm:flex-row">
           <input
             ref={inputRef}
             className="border-none "
             placeholder="Enter a word"
             type="text"
           />
-          <button
-            onClick={btnState === 'Add' ? handleAdd : handleChange}
-            className=" border-l-2 border-blue-400 px-4 py-2 font-semibold hover:bg-blue-400"
-          >
-            {btnState === 'Add' ? 'Add' : 'Save'}
-          </button>
+          <div className="border-t-2 border-blue-400 sm:border-t-0 flex flex-row">
+            <button
+              onClick={btnState === 'Add' ? handleAdd : handleChange}
+              className=" border-l-0 border-blue-400 px-4 py-2 font-semibold hover:bg-blue-400 sm:border-l-2 flex-grow"
+            >
+              {btnState === 'Add' ? 'Add' : 'Save'}
+            </button>
 
-          <button
-            disabled={dictionary.length > 1 ? false : true}
-            type="button"
-            onClick={handleGeneratedWord}
-            className=" border-l-2 border-blue-400 px-4 py-2 font-semibold hover:bg-blue-400"
-          >
-            {dictionary.length > 1 ? 'Generate Word' : 'Loading...'}
-          </button>
+            <button
+              disabled={dictionary.length > 1 ? false : true}
+              type="button"
+              onClick={handleGeneratedWord}
+              className=" border-l-2 border-blue-400 px-4 py-2 font-semibold hover:bg-blue-400"
+            >
+              {dictionary.length > 1 ? 'Generate Word' : 'Loading...'}
+            </button>
+          </div>
         </div>
 
         {words.word.length > 0 ? (
