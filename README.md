@@ -5,6 +5,7 @@
 - [General information](#general-information)
 - [Built With](#built-with)
 - [Installation](#installation)
+- [Deployment](#deployment)
 
 ## General information
 The Anagram Creator App is a web-based tool that allows teachers to input a set of words, and then generates anagrams from those words. The app randomly shuffles the letters in each word, ensuring that the first letter of the original word is not the first letter in the jumbled word. The app is designed to be easy to use and can be utilized as an educational tool for students to practice spelling and vocabulary.
@@ -30,3 +31,8 @@ https://random-word-api.herokuapp.com/home
    - Create a a folders in your local machine to clone the repository
    - Using using Gitbash / terminal navigate to the folder.
    - Enter the following Client folder: git clone https://github.com/Luken1990/unJumble.git
+   
+## Deployment
+
+Deployed using: https://www.netlify.com
+Link to deployed application: https://unjumble.netlify.app/
