@@ -24,8 +24,6 @@ const Game = () => {
     }
   };
 
-  console.log(show.length, guessWord.length);
-
   return (
     <section className="px-0 sm:px-10">
       <div className=" mb-10 flex flex-row justify-end gap-4">

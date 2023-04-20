@@ -33,7 +33,7 @@ const Home = ({ dictionary }) => {
     const randomNum = Math.ceil(Math.random() * dictionary.length);
     if (
       words.word.length < 10 &&
-      !words.word.includes(inputRef.current.value)
+      !words.word.includes(inputRef.current.value.toLowerCase())
     ) {
       const randomWord = dictionary[randomNum];
 
@@ -49,7 +49,7 @@ const Home = ({ dictionary }) => {
     if (
       inputRef.current.value !== '' &&
       words.word.length < 10 &&
-      !words.word.includes(inputRef.current.value)
+      !words.word.includes(inputRef.current.value.toLowerCase())
     ) {
       setWords({
         ...words,
@@ -83,14 +83,16 @@ const Home = ({ dictionary }) => {
     const changeWords = {
       word: words.word.map((word, i) => {
         if (i === index) {
-          return (word = inputRef.current.value);
+          return (word = inputRef.current.value.toLowerCase());
         } else {
           return word;
         }
       }),
       jumbleWord: words.jumbleWord.map((word, i) => {
         if (i === index) {
-          return (word = jumbledWordArray(inputRef.current.value));
+          return (word = jumbledWordArray(
+            inputRef.current.value.toLowerCase()
+          ));
         } else {
           return word;
         }
@@ -122,10 +124,10 @@ const Home = ({ dictionary }) => {
             placeholder="Enter a word"
             type="text"
           />
-          <div className="border-t-2 border-blue-400 sm:border-t-0 flex flex-row">
+          <div className="flex flex-row border-t-2 border-blue-400 sm:border-t-0">
             <button
               onClick={btnState === 'Add' ? handleAdd : handleChange}
-              className=" border-l-0 border-blue-400 px-4 py-2 font-semibold hover:bg-blue-400 sm:border-l-2 flex-grow"
+              className=" flex-grow border-l-0 border-blue-400 px-4 py-2 font-semibold hover:bg-blue-400 sm:border-l-2"
             >
               {btnState === 'Add' ? 'Add' : 'Save'}
             </button>
