@@ -4,10 +4,10 @@ import Game from './pages/Game';
 import { Routes, Route } from 'react-router-dom';
 import img from './assets/towfiqu-barbhuiya-5u6bz2tYhX8-unsplash.jpg';
 
-export const WordContext = createContext([]);
+export const WordContext = createContext({});
 
 function App() {
-  const [words, setWords] = useState([]);
+  const [words, setWords] = useState({ word: [], jumbleWord: [] });
   const [dictionary, setDictionary] = useState([]);
 
   const fetchWords = async () => {

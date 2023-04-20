@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { WordContext } from '../App';
 import * as RxIcons from 'react-icons/rx';
 import * as MdIcons from 'react-icons/md';
+import * as TiIcons from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 
@@ -11,28 +12,15 @@ const Game = () => {
   const [show, setShow] = useState([]);
   const navigate = useNavigate();
 
-  const jumbleWord = (arr) => {
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-  };
-
-  const jumbledWordArray = (word) => {
-    let letters = word.split('');
-    jumbleWord(letters);
-    while (letters[0] === word[0]) {
-      // Reshuffle the letters until the first letter is different
-      jumbleWord(letters);
-    }
-
-    let jumbledWord = letters.join('');
-    return jumbledWord;
-  };
-
-  const handleGuess = (e) => {
+  const handleGuess = (e, index) => {
     if (e.key === 'Enter') {
-      setGuessWord([...guessWord, e.target.value]);
+      const guess = e.target.value;
+      if (guess === words.word[index]) {
+        e.target.value = words.word[index];
+        setGuessWord([...guessWord, guess]);
+      } else {
+        e.target.value = '';
+      }
     }
   };
 
@@ -45,6 +33,7 @@ const Game = () => {
         <button
           onClick={() => {
             setShow([]);
+            setGuessWord([]);
           }}
           className="hover:text-blue-400"
         >
@@ -52,13 +41,11 @@ const Game = () => {
         </button>
       </div>
       <div className=" flex flex-col gap-y-5">
-        {words.map((word, index) => {
-          const jumbledWord = jumbledWordArray(word);
-
+        {words.jumbleWord.map((word, index) => {
           return (
             <div key={nanoid()} className="grid grid-cols-11 gap-5">
               <div className=" col-span-5 border-4 border-blue-400 px-8 py-4 text-4xl font-bold uppercase">
-                {jumbledWord}
+                <span>{word}</span>
               </div>
 
               <div className=" col-span-1 flex items-center justify-center">
@@ -70,13 +57,30 @@ const Game = () => {
                 </button>
               </div>
 
-              {show.includes(index) ? (
+              {guessWord[index] === words.word[index] ? (
+                <div className=" col-span-5 flex items-center gap-4 border-4 border-blue-400 px-8 py-4 text-4xl font-bold uppercase">
+                  {guessWord[index]}
+                  <span className=" text-green-400">
+                    <TiIcons.TiTick size={50} />
+                  </span>
+                </div>
+              ) : show.includes(index) ? (
                 <input
-                  onKeyDown={handleGuess}
+                  onKeyDown={(e) => handleGuess(e, index)}
                   type="text"
                   className=" col-span-5 border-4 border-blue-400 px-8 py-4 text-4xl font-bold uppercase"
                 />
               ) : null}
+
+              {/* {show.includes(index) ? (
+                <input
+                  onKeyDown={(e) => handleGuess(e, index)}
+                  type="text"
+                  className=" col-span-5 border-4 border-blue-400 px-8 py-4 text-4xl font-bold uppercase"
+                />
+              ) : guessWord[index] === words.word[index] ? (
+                <div>{guessWord[index]}</div>
+              ) : null} */}
             </div>
           );
         })}
@@ -86,6 +90,25 @@ const Game = () => {
 };
 
 export default Game;
+
+// const jumbleWord = (arr) => {
+//   for (let i = arr.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [arr[i], arr[j]] = [arr[j], arr[i]];
+//   }
+// };
+
+// const jumbledWordArray = (word) => {
+//   let letters = word.split('');
+//   jumbleWord(letters);
+//   while (letters[0] === word[0]) {
+//     // Reshuffle the letters until the first letter is different
+//     jumbleWord(letters);
+//   }
+
+//   let jumbledWord = letters.join('');
+//   return jumbledWord;
+// };
 
 // const jumbledWord = word
 //   .split('')

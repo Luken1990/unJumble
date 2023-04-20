@@ -11,28 +11,68 @@ const Home = ({ dictionary }) => {
   const inputRef = useRef('');
   const navigate = useNavigate();
 
+  const jumbleArr = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  };
+
+  const jumbledWordArray = (word) => {
+    let letters = word.split('');
+    jumbleArr(letters);
+    while (letters[0] === word[0]) {
+      // Reshuffle the letters until the first letter is different
+      jumbleArr(letters);
+    }
+
+    let jumbledWord = letters.join('');
+    return jumbledWord;
+  };
+
   const handleGeneratedWord = () => {
     const randomNum = Math.ceil(Math.random() * dictionary.length);
-    if (words.length < 10 && !words.includes(inputRef.current.value)) {
-      setWords([...words, dictionary[randomNum]]);
+    if (
+      words.word.length < 10 &&
+      !words.word.includes(inputRef.current.value)
+    ) {
+      const randomWord = dictionary[randomNum];
+
+      setWords({
+        ...words,
+        word: [...words.word, randomWord],
+        jumbleWord: [...words.jumbleWord, jumbledWordArray(randomWord)],
+      });
     }
+    console.log(words);
   };
 
   const handleAdd = () => {
     if (
       inputRef.current.value !== '' &&
-      words.length < 10 &&
-      !words.includes(inputRef.current.value)
+      words.word.length < 10 &&
+      !words.word.includes(inputRef.current.value)
     ) {
-      setWords([...words, inputRef.current.value]);
-      inputRef.current.value = '';
+      setWords({
+        ...words,
+        word: [...words.word, inputRef.current.value],
+        jumbleWord: [
+          ...words.jumbleWord,
+          jumbledWordArray(inputRef.current.value),
+        ],
+      });
+
       console.log(words);
+      inputRef.current.value = '';
     }
   };
 
-  const handleDelete = (word) => {
-    const newArr = words.filter((item) => item !== word);
-    setWords(newArr);
+  const handleDelete = (word, index) => {
+    const filteredWords = {
+      word: words.word.filter((item, i) => i !== index),
+      jumbleWord: words.jumbleWord.filter((item, i) => i !== index),
+    };
+    setWords(filteredWords);
   };
 
   const handleEdit = (word, index) => {
@@ -42,16 +82,32 @@ const Home = ({ dictionary }) => {
   };
 
   const handleChange = () => {
-    const newWordArr = words.map((word) =>
-      word === prevWord ? (word = inputRef.current.value) : word
-    );
-    setWords(newWordArr);
+    const index = words.word.indexOf(prevWord);
+
+    const changeWords = {
+      word: words.word.map((word, i) => {
+        if (i === index) {
+          return (word = inputRef.current.value);
+        } else {
+          return word;
+        }
+      }),
+      jumbleWord: words.jumbleWord.map((word, i) => {
+        if (i === index) {
+          return (word = jumbledWordArray(inputRef.current.value));
+        } else {
+          return word;
+        }
+      }),
+    };
+
+    setWords(changeWords);
     inputRef.current.value = '';
     setBtnStat('Add');
   };
 
   const handleInput = () => {
-    if (words.length > 0) {
+    if (words.word.length > 0) {
       navigate('/game');
     }
   };
@@ -87,9 +143,9 @@ const Home = ({ dictionary }) => {
           </button>
         </div>
 
-        {words.length > 0 ? (
+        {words.word.length > 0 ? (
           <div className=" mb-5 flex flex-col gap-y-2">
-            {words.map((word, index) => {
+            {words.word.map((word, index) => {
               return (
                 <div
                   key={word}
@@ -105,7 +161,7 @@ const Home = ({ dictionary }) => {
                       <BiIcons.BiEdit size={20} />
                     </button>
                     <button
-                      onClick={() => handleDelete(word)}
+                      onClick={() => handleDelete(word, index)}
                       className="hover:text-blue-400"
                     >
                       <MdIcons.MdDeleteOutline size={20} />
@@ -130,3 +186,31 @@ const Home = ({ dictionary }) => {
 };
 
 export default Home;
+
+// const handleDelete = (word, index) => {
+//   const filteredWord = words.word.filter((item, i) => {
+//     return i !== index;
+//   });
+//   const filteredJumbleWord = words.jumbleWord.filter((item, i) => {
+//     return i !== index;
+//   });
+
+//   setWords({ ...words, word: filteredWord, jumbleWord: filteredJumbleWord });
+//   console.log(words);
+// };
+
+// const handleAdd = () => {
+//   if (
+//     inputRef.current.value !== '' &&
+//     words.length < 10 &&
+//     !words.includes(inputRef.current.value)
+//   ) {
+//     setWords([...words, inputRef.current.value]);
+//     setJumbleWords([
+//       ...jumbleWords,
+//       jumbledWordArray(inputRef.current.value),
+//     ]);
+//     console.log(words, jumbleWords);
+//     inputRef.current.value = '';
+//   }
+// };
