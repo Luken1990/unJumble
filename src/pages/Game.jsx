@@ -14,7 +14,7 @@ const Game = () => {
 
   const handleGuess = (e, index) => {
     if (e.key === 'Enter') {
-      const guess = e.target.value;
+      const guess = e.target.value.toLowerCase();
       if (guess === words.word[index]) {
         e.target.value = words.word[index];
         setGuessWord([...guessWord, guess]);
@@ -23,6 +23,8 @@ const Game = () => {
       }
     }
   };
+
+  console.log(show.length, guessWord.length)
 
   return (
     <section className="px-10">
@@ -64,23 +66,13 @@ const Game = () => {
                     <TiIcons.TiTick size={50} />
                   </span>
                 </div>
-              ) : show.includes(index) ? (
+              ) : show.includes(index) && index === guessWord.length ? (
                 <input
                   onKeyDown={(e) => handleGuess(e, index)}
                   type="text"
                   className=" col-span-5 border-4 border-blue-400 px-8 py-4 text-4xl font-bold uppercase"
                 />
               ) : null}
-
-              {/* {show.includes(index) ? (
-                <input
-                  onKeyDown={(e) => handleGuess(e, index)}
-                  type="text"
-                  className=" col-span-5 border-4 border-blue-400 px-8 py-4 text-4xl font-bold uppercase"
-                />
-              ) : guessWord[index] === words.word[index] ? (
-                <div>{guessWord[index]}</div>
-              ) : null} */}
             </div>
           );
         })}
@@ -90,29 +82,3 @@ const Game = () => {
 };
 
 export default Game;
-
-// const jumbleWord = (arr) => {
-//   for (let i = arr.length - 1; i > 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1));
-//     [arr[i], arr[j]] = [arr[j], arr[i]];
-//   }
-// };
-
-// const jumbledWordArray = (word) => {
-//   let letters = word.split('');
-//   jumbleWord(letters);
-//   while (letters[0] === word[0]) {
-//     // Reshuffle the letters until the first letter is different
-//     jumbleWord(letters);
-//   }
-
-//   let jumbledWord = letters.join('');
-//   return jumbledWord;
-// };
-
-// const jumbledWord = word
-//   .split('')
-//   .map((letter) => ({ letter, sort: Math.random() }))
-//   .sort((a, b) => a.sort - b.sort)
-//   .map(({ letter }) => letter)
-//   .join('');

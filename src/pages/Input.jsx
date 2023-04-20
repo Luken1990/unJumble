@@ -22,7 +22,6 @@ const Home = ({ dictionary }) => {
     let letters = word.split('');
     jumbleArr(letters);
     while (letters[0] === word[0]) {
-      // Reshuffle the letters until the first letter is different
       jumbleArr(letters);
     }
 
@@ -44,7 +43,6 @@ const Home = ({ dictionary }) => {
         jumbleWord: [...words.jumbleWord, jumbledWordArray(randomWord)],
       });
     }
-    console.log(words);
   };
 
   const handleAdd = () => {
@@ -55,14 +53,12 @@ const Home = ({ dictionary }) => {
     ) {
       setWords({
         ...words,
-        word: [...words.word, inputRef.current.value],
+        word: [...words.word, inputRef.current.value.toLowerCase()],
         jumbleWord: [
           ...words.jumbleWord,
-          jumbledWordArray(inputRef.current.value),
+          jumbledWordArray(inputRef.current.value.toLowerCase()),
         ],
       });
-
-      console.log(words);
       inputRef.current.value = '';
     }
   };
@@ -186,31 +182,3 @@ const Home = ({ dictionary }) => {
 };
 
 export default Home;
-
-// const handleDelete = (word, index) => {
-//   const filteredWord = words.word.filter((item, i) => {
-//     return i !== index;
-//   });
-//   const filteredJumbleWord = words.jumbleWord.filter((item, i) => {
-//     return i !== index;
-//   });
-
-//   setWords({ ...words, word: filteredWord, jumbleWord: filteredJumbleWord });
-//   console.log(words);
-// };
-
-// const handleAdd = () => {
-//   if (
-//     inputRef.current.value !== '' &&
-//     words.length < 10 &&
-//     !words.includes(inputRef.current.value)
-//   ) {
-//     setWords([...words, inputRef.current.value]);
-//     setJumbleWords([
-//       ...jumbleWords,
-//       jumbledWordArray(inputRef.current.value),
-//     ]);
-//     console.log(words, jumbleWords);
-//     inputRef.current.value = '';
-//   }
-// };
