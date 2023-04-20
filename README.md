@@ -3,21 +3,11 @@
 
 ##### Table of Contents  
 - [General information](#general-information)
-- [Planning](#planning)
 - [Built With](#built-with)
 - [Installation](#installation)
-- [Deployment](#deployment)
 
 ## General information
 The Anagram Creator App is a web-based tool that allows teachers to input a set of words, and then generates anagrams from those words. The app randomly shuffles the letters in each word, ensuring that the first letter of the original word is not the first letter in the jumbled word. The app is designed to be easy to use and can be utilized as an educational tool for students to practice spelling and vocabulary.
-
-## Planning
-
-Layout: [Wireframe.pdf](https://github.com/Luken1990/bloggin.client/files/10901937/Wireframe.pdf)
-
-## Security
-* JWT is used to securely transmit information between the client and server during authentication. 
-* API keys are stored as environment variables.
 
 
 ## Built With
